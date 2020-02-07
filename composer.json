@@ -6,7 +6,7 @@
 
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-sqlite3": "*",
+        "ext-mysql": "*",
 
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.7",

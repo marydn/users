@@ -11,18 +11,18 @@ final class User
 {
     public int $id;
     public string $name;
-    private Collection $attributes;
+    public Collection $attributes;
 
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
     }
 
-    public function addAttribute(Attribute $attribute, string $value): self
+    public function addAttribute(UserHasAttribute $userHasAttribute): self
     {
-        $element = new UserHasAttribute($this, $attribute, $value);
-        if (!$this->attributes->contains($element)) {
-            $this->attributes->add($element);
+        $userHasAttribute->user = $this;
+        if (!$this->attributes->contains($userHasAttribute)) {
+            $this->attributes->add($userHasAttribute);
         }
 
         return $this;
@@ -37,7 +37,7 @@ final class User
         return $this;
     }
 
-    public function getAttributes(): ArrayCollection
+    public function getAttributes(): Collection
     {
         return $this->attributes;
     }

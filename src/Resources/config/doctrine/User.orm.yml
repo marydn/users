@@ -17,5 +17,4 @@ Users\Entity\User:
     attributes:
       targetEntity: Users\Entity\UserHasAttribute
       mappedBy: user
-      cascade: ["persist", "remove"]
-      orderBy: { name: 'ASC' }
+      cascade: ["persist"]

@@ -15,6 +15,7 @@ Users\Entity\UserHasAttribute:
   manyToOne:
     user:
       targetEntity: Users\Entity\User
+      inversedBy: attributes
       cascade: ["persist"]
     attribute:
       targetEntity: Users\Entity\Attribute

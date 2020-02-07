@@ -8,11 +8,10 @@ Users\Entity\Attribute:
         strategy: AUTO
 
   fields:
-    name:
+    title:
       type: string
       length: 255
-      unique: true
 
   indexes:
     attribute_name_index:
-      columns: ["name"]
+      columns: ["title"]

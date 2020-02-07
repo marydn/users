@@ -4,7 +4,7 @@
     <form class="form-inline">
         <div class="form-group">
             <label for="attribute">Attribute value to look for:</label>
-            <input id="attribute" name="attribute" type="url" placeholder="Search users by their attributes" class="form-control" />
+            <input id="attribute" name="attribute" type="text" placeholder="Search users by their attributes" class="form-control" value="{{ term }}" />
         </div>
 
         <button type="submit" class="btn btn-primary">Consultar</button>
@@ -13,10 +13,10 @@
     <ul>
         {% for user in users %}
             <li>
-                {{ user.name }}
+                <strong>{{ user.name }}:</strong>
                 <ul>
                     {% for attr in user.attributes %}
-                        <li>{{ attr.name }}: {{ attr.value }}</li>
+                        <li>{{ attr }}</li>
                     {% endfor %}
                 </ul>
             </li>

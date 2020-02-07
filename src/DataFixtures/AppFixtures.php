@@ -6,6 +6,7 @@ use Users\Entity\Attribute;
 use Users\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Users\Entity\UserHasAttribute;
 
 class AppFixtures extends Fixture
 {
@@ -15,6 +16,8 @@ class AppFixtures extends Fixture
     {
         $attrs = $this->generateAttributes();
         $colors = $this->generateColors();
+
+        $users = [];
 
         for ($i = 1; $i <= self::LIMIT; $i++) {
             $user = new User;
@@ -76,7 +79,12 @@ class AppFixtures extends Fixture
         return array_map(function($attr) use ($user, $colors) {
             $randomColor = array_rand($colors, 1);
 
-            return $user->addAttribute($attr, $colors[$randomColor]);
+            $uha = new UserHasAttribute();
+            $uha->user = $user;
+            $uha->attribute = $attr;
+            $uha->value = $colors[$randomColor];
+
+            return $user->addAttribute($uha);
         }, $randomAttrs);
     }
 }

@@ -11,10 +11,8 @@ final class UserHasAttribute
     public Attribute $attribute;
     public string $value;
 
-    public function __construct(User $user, Attribute $attribute, string $value)
+    public function __toString()
     {
-        $this->user      = $user;
-        $this->attribute = $attribute;
-        $this->value     = $value;
+        return sprintf('%s: %s', (string) $this->attribute, $this->value);
     }
 }

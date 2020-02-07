@@ -1,35 +1,33 @@
 ## Environment setup using Docker
 
-### Environment configuration
+### Application execution
 
-1. Clone this project: `$ git clone https://github.com/marydn/users`
+1. [Install Docker](https://www.docker.com/get-started)
 
-2. Move to the project folder: `$ cd users`
+2. Clone this project: `$ git clone https://github.com/marydn/users`
 
-3. By default, SQLite database file is set in .env.
+3. Move to the project folder: `$ cd users`
+
+4. Start the project: `$ make build`
+   
+    This will install PHP dependencies, bring up the Docker containers with Docker Compose and load fixtures in database.
+
+5. Check everything's up: `$ docker-composer ps`
+
+    It should show `nginx`, `php` and `mysql`  services up.
+
+6. Go to `http:://localhost:8000` in your browser
+
+7. By default, local database created by Docker is used in `.env` file
     
-   To override this parameter with: (feel free to use any valid DSN url value)
+   To override this parameter:
     
     ```bash
     $ touch .env.local
     $ echo "DATABASE_URL='sqlite:///XXXXX.sqlite'" >> .env.local
     ```
-
-4. Load some fixtures: `make fixtures`
-
-### Application execution
-
-1. [Install Docker](https://www.docker.com/get-started)
-
-2. Start the project: `$ make build`
    
-    This will install PHP dependencies and bring up the project Docker containers with Docker Compose.
-
-3. Check everything's up: `$ docker-composer ps`
-
-    It should show nginx and php services up.
-
-4. Go to `http:://localhost:8000` in your browser
+   To fill the new database with fixtures: `make fixtures`
 
 ### Some Docker commands
 
@@ -39,13 +37,13 @@
 
 ## Project explanation
 
-This is a simple demo project to handle users with custom attributes values.
+This is a simple demo project to search users with custom attributes values.
 
 ```bash
 $ tree -L 4 src
 src
 ├── Controller
-│   └── DefaultController.php
+│   └── GetUsersController.php
 ├── DataFixtures
 │   └── AppFixtures.php
 ├── Entity
@@ -54,10 +52,13 @@ src
 │   └── User.php
 ├── Repository
 │   └── UserRepository.php
-└── Resources
-    └── config
-        └── doctrine
-            ├── Attribute.orm.yml
-            ├── UserHasAttribute.orm.yml
-            └── User.orm.yml
+├── Resources
+│   └── config
+│       └── doctrine
+│           ├── Attribute.orm.yml
+│           ├── UserHasAttribute.orm.yml
+│           └── User.orm.yml
+└── Service
+    └── UserManager.php
+
 ```

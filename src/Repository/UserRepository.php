@@ -8,14 +8,16 @@ use Doctrine\ORM\EntityRepository;
 
 final class UserRepository extends EntityRepository
 {
-    public function findUsersByAttributeName(string $search): array
+    public function findUsersByAttribute(string $search, ?int $limit = null): array
     {
         $qb = $this->createQueryBuilder('c')
+            ->select('c, a')
             ->innerJoin('c.attributes', 'a');
 
         $like = $qb->expr()->like('a.value', ':search');
 
         return $qb->andWhere($like)
+            ->setMaxResults($limit)
             ->setParameter('search', "%$search%")
             ->getQuery()
             ->getResult();

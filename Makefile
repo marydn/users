@@ -2,13 +2,13 @@
 
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-# 👌 Main targets
+# Main targets
 
 build: deps start
 
 deps: composer-install
 
-# 🐘 Composer
+# Composer
 
 composer-install: CMD=install
 composer-update: CMD=update
@@ -17,32 +17,23 @@ composer-update: CMD=update
 composer composer-install composer-update:
 	@docker run --rm --interactive --tty --volume $(current-dir):/app --user $(id -u):$(id -g) \
 		clevyr/prestissimo $(CMD) \
-			--ignore-platform-reqs \
 			--no-ansi \
 			--no-interaction
 
-# 🕵️ Clear cache
+# Clear cache
 # OpCache: Restarts the unique process running in the PHP FPM container
 # Nginx: Reloads the server
 
 reload:
 	@docker-compose exec php kill -USR2 1
 	@docker-compose exec nginx nginx -s reload
-	#@docker-compose exec db mariadb -s reload
+	@docker-compose exec db mariadb -s reload
 
-# Tests
-
-test:
-	@docker exec -it demo-php make run-tests
-
-run-tests:
-	mkdir -p build/test_results/phpunit
-	./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml tests
-
-# 🐳 Docker Compose
+# Docker Compose
 
 start:
 	@docker-compose up -d
+	make fixtures
 
 stop: CMD=stop
 
@@ -59,6 +50,7 @@ rebuild:
 	make start
 
 fixtures:
-	@docker-compose exec php bin/console doctrine:schema:drop --force
-	@docker-compose exec php bin/console doctrine:schema:create
-	@docker-compose exec php bin/console doctrine:fixtures:load
+	@docker-compose exec php bin/console doctrine:database:drop --force --if-exists -n
+	@docker-compose exec php bin/console doctrine:database:create --if-not-exists -n
+	@docker-compose exec php bin/console doctrine:schema:create -n
+	@docker-compose exec php bin/console doctrine:fixtures:load -n

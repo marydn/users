@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  db:
+    container_name: demo-db
+    image: mariadb:latest
+    restart: always
+    ports:
+      - "3309:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
   nginx:
     container_name: demo-nginx
     image: nginx:1.15-alpine
@@ -23,3 +33,5 @@ services:
       - "9000:9001"
     volumes:
       - .:/app:delegated
+    depends_on:
+      - db

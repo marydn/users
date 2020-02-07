@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Users\Entity;
 
-final class Attribute
+class Attribute
 {
     public int $id;
-    public string $name;
+    public string $title;
 
-    public function __construct(?string $name = null)
+    public function __construct(string $title)
     {
-        $this->name = $name;
+        $this->title = $title;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

@@ -1,4 +1,4 @@
-index:
+get_users:
     path: /
-    controller: Users\Controller\DefaultController
+    controller: Users\Controller\GetUsersController
     methods: [GET]
