@@ -59,4 +59,4 @@ rebuild:
 	make start
 
 fixtures:
-	@php bin/console doctrine:fixtures:load
+	@docker-compose php bin/console doctrine:fixtures:load

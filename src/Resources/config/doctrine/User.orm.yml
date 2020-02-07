@@ -15,7 +15,7 @@ Users\Entity\User:
 
   oneToMany:
     attributes:
-      targetEntity: App\Entity\UserHasAttribute
+      targetEntity: Users\Entity\UserHasAttribute
       mappedBy: user
       cascade: ["persist", "remove"]
       orderBy: { name: 'ASC' }

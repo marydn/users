@@ -14,10 +14,10 @@ Users\Entity\UserHasAttribute:
 
   manyToOne:
     user:
-      targetEntity: App\Entity\User
+      targetEntity: Users\Entity\User
       cascade: ["persist"]
     attribute:
-      targetEntity: App\Entity\Attribute
+      targetEntity: Users\Entity\Attribute
       cascade: ["persist"]
       fetch: EAGER
 

@@ -20,6 +20,6 @@ services:
       dockerfile: ./etc/php/Dockerfile
     restart: unless-stopped
     ports:
-      - "9090:9001"
+      - "9000:9001"
     volumes:
       - .:/app:delegated
