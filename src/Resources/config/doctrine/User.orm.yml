@@ -1,0 +1,21 @@
+Users\Entity\User:
+  type: entity
+  table: user
+  repositoryClass: Users\Repository\UserRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    name:
+      type: string
+      length: 255
+
+  oneToMany:
+    attributes:
+      targetEntity: App\Entity\UserHasAttribute
+      mappedBy: user
+      cascade: ["persist", "remove"]
+      orderBy: { name: 'ASC' }

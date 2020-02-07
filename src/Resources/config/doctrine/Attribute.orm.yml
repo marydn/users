@@ -1,0 +1,18 @@
+Users\Entity\Attribute:
+  type: entity
+  table: attribute
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    name:
+      type: string
+      length: 255
+      unique: true
+
+  indexes:
+    attribute_name_index:
+      columns: ["name"]

@@ -1,0 +1,30 @@
+Users\Entity\UserHasAttribute:
+  type: entity
+  table: user_has_attribute
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+
+  fields:
+    value:
+      type: string
+      length: 255
+
+  manyToOne:
+    user:
+      targetEntity: App\Entity\User
+      cascade: ["persist"]
+    attribute:
+      targetEntity: App\Entity\Attribute
+      cascade: ["persist"]
+      fetch: EAGER
+
+  uniqueConstraints:
+    attribute_user_idx:
+      columns: ["attribute_id", "user_id"]
+
+  indexes:
+    attribute_value_index:
+      columns: ["value"]
